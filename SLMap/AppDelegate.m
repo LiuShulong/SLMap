@@ -8,8 +8,12 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+#import "BMapKit.h"
 
+@interface AppDelegate ()<BMKGeneralDelegate>
+{
+    BMKMapManager* _mapManager;
+}
 @end
 
 @implementation AppDelegate
@@ -17,7 +21,34 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:@"tNQgVPUpsTRb1RBr4FPKSlla"  generalDelegate:self];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+    
     return YES;
+}
+
+- (void)onGetPermissionState:(int)iError
+{
+    switch (iError) {
+        case 0:
+            NSLog(@"pass");
+            break;
+        case -200:{
+            NSLog(@"服务端数据错误，无法解析服务端返回数据");
+        }
+            break;
+            case -300:
+            NSLog(@"无法建立与服务端的连接");
+            break;
+        default:
+            NSLog(@"%zd",iError);
+            break;
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
