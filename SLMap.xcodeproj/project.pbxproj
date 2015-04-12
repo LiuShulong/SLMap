@@ -24,7 +24,7 @@
 		74C9C1331ACF8B58001F9198 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C9C1321ACF8B58001F9198 /* Security.framework */; };
 		74C9C1C41ACFA246001F9198 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C9C1C21ACFA246001F9198 /* libbaidumapapi.a */; };
 		74C9C1C51ACFA246001F9198 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 74C9C1C31ACFA246001F9198 /* mapapi.bundle */; };
-		74CB589E1ADA664B00C96071 /* 1.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 74CB589D1ADA664B00C96071 /* 1.PNG */; };
+		74CB58A01ADA694C00C96071 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 74CB589F1ADA694C00C96071 /* sample.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +124,7 @@
 		74C9C1C11ACFA246001F9198 /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
 		74C9C1C21ACFA246001F9198 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaidumapapi.a; sourceTree = "<group>"; };
 		74C9C1C31ACFA246001F9198 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
-		74CB589D1ADA664B00C96071 /* 1.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.PNG; sourceTree = "<group>"; };
+		74CB589F1ADA694C00C96071 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +155,7 @@
 		139CA9E41A88D8C5009717EE = {
 			isa = PBXGroup;
 			children = (
-				74CB589D1ADA664B00C96071 /* 1.PNG */,
+				74CB589F1ADA694C00C96071 /* sample.png */,
 				74C9C1321ACF8B58001F9198 /* Security.framework */,
 				74C9C1301ACF8B53001F9198 /* CoreGraphics.framework */,
 				74C9C12E1ACF8B45001F9198 /* SystemConfiguration.framework */,
@@ -416,7 +416,7 @@
 				139CA9FC1A88D8C5009717EE /* Main.storyboard in Resources */,
 				74C9C1C51ACFA246001F9198 /* mapapi.bundle in Resources */,
 				139CAA011A88D8C5009717EE /* LaunchScreen.xib in Resources */,
-				74CB589E1ADA664B00C96071 /* 1.PNG in Resources */,
+				74CB58A01ADA694C00C96071 /* sample.png in Resources */,
 				139CA9FE1A88D8C5009717EE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
