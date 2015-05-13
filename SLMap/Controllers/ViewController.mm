@@ -50,76 +50,66 @@
 
 @implementation ViewController
 
+#pragma mark - lifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-        
     [self configureUI];
-    self.coordinates = [NSMutableArray array];
+    [self configureFrames];
 }
 
-- (void)dealloc
-{
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:@"overLay" object:nil];
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (SLCanvasView *)canvasView
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 初始化地图数据
+
+- (void)configureUI
 {
-    if (_canvasView == nil) {
-        _canvasView = [[SLCanvasView alloc] initWithFrame:self.mapView.bounds];
-        _canvasView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-        _canvasView.userInteractionEnabled = YES;
-        [_canvasView setDelegate:self];
+    [self.view addSubview:self.mapView];
+}
+
+- (void)configureFrames
+{
+    self.mapView.frame = CGRectMake(0, 0,
+                                    CGRectGetWidth(self.view.bounds),
+                                    CGRectGetHeight(self.view.bounds) - 50);
+}
+
+#pragma mark - notification
+
+- (void)addOberser
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"overLay" object:nil];
+}
+
+// 这个参数是通知中心发送的通知
+- (void)receiveNotification:(NSNotification *)noti
+{
+    ///判断是哪一个
+    _currentPolygonCount--;
+    if (_currentPolygonCount == 0) {
+        [self.view.layer addSublayer:self.maskLayer];
     }
-    return _canvasView;
-}
-
-- (CALayer *)maskLayer
-{
-    if (_maskLayer == nil) {
-        _maskLayer = [[CALayer alloc] init];
-        _maskLayer.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3].CGColor;
-        _maskLayer.bounds = CGRectMake(0, 0, 10000, 10000);
-    }
-    return _maskLayer;
-}
-
-#pragma mark - 点击事件
-
-- (void)touchesBegan:(UITouch*)touch
-{
-    self.coordinates = [NSMutableArray array];
-    [self addTouchPoints:touch];
-}
-
-- (void)touchesMoved:(UITouch*)touch
-{
     
-    [self addTouchPoints:touch];
 }
 
-- (void)touchesEnded:(UITouch*)touch
-{
-    [self addTouchPoints:touch];
-    
-    if (self.coordinates.count > 3) {
-//        [self drawCircle];
-        
-        [self.polygonPoints addObject:_coordinates];
-    } else {///点数太少，恢复初始状态
-//        [self clearDrawStatus];
-    }
-
-
-}
+#pragma mark - 绘制相关
 
 - (void)drawCircle{
     
     [self.polygonArray removeAllObjects];
-    for (int i = 0; i < _polygonPoints.count; i++) {
+    
+    NSUInteger count = self.polygonPoints.count;
+    
+    for (int i = 0; i < count; i++) {
         
-        NSArray *cos = _polygonPoints[i];
+        NSArray *cos = self.polygonPoints[i];
         NSUInteger count = cos.count;
         CLLocationCoordinate2D arr[count];
         for (int j = 0; j < count; j++) {
@@ -134,9 +124,9 @@
         
     }
     
-    [_polygonPoints removeAllObjects];
+    [self.polygonPoints removeAllObjects];
     
-    if (_polygonArray.count > 0) {
+    if (self.polygonArray.count > 0) {
         [self.mapView addOverlay:_polygonArray[0]];
     }
 
@@ -167,6 +157,22 @@
     
 }
 
+//设置为绘制状态
+- (void)becomeDrawDrawStatus
+{
+    self.isDrawingPolygon = YES;
+    
+    [self.coordinates removeAllObjects];
+    
+    [self.view addSubview:self.canvasView];
+    [self.mapView removeOverlays:self.polygonArray];
+    [self.polygonArray removeAllObjects];
+    
+    _hasOverLay = NO;
+    [self.maskLayer removeFromSuperlayer];
+    
+}
+
 
 /*
   添加移动的点
@@ -181,38 +187,7 @@
 }
 
 
-
-
-#pragma mark - 初始化地图数据
-
-- (void)configureUI
-{
-    self.mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 50)];
-    [self.view addSubview:_mapView];
-    _mapView.delegate = self;
-    self.mapView.rotateEnabled = NO;
-    self.mapView.overlookEnabled = NO;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"overLay" object:nil];
-    
-    self.coordinates = [NSMutableArray array];
-    self.polygonPoints = [NSMutableArray array];
-    self.polygonArray = [NSMutableArray array];
-}
-
-// 这个参数是通知中心发送的通知
-- (void)receiveNotification:(NSNotification *)noti
-{
-    ///判断是哪一个
-    _currentPolygonCount--;
-    if (_currentPolygonCount == 0) {
-        [self.view.layer addSublayer:_maskLayer];
-    }
-    
-}
-
-
-#pragma mark - 相关操作
+#pragma mark - click事件
 
 ///绘制和清除按钮点击
 - (IBAction)operationButtonClick:(UIButton *)sender {
@@ -239,30 +214,15 @@
     [self drawCircle];
 }
 
-//设置为绘制状态
-- (void)becomeDrawDrawStatus
-{
-    self.isDrawingPolygon = YES;
-    
-    [self.coordinates removeAllObjects];
-    
-    [self.view addSubview:self.canvasView];
-    [self.mapView removeOverlays:self.polygonArray];
-    [self.polygonArray removeAllObjects];
 
-    _hasOverLay = NO;
-    [self.maskLayer removeFromSuperlayer];
-    
-}
-
-#pragma mark - mapViewDelegate
+#pragma mark - BMKMapViewDelegate
 
 - (BMKOverlayView *)mapView:(BMKMapView *)mapView viewForOverlay:(id <BMKOverlay>)overlay
 {
     if ([overlay isKindOfClass:[BMKPolygon class]]) {
         SLOverlayView * overlayPathView = nil;
-        if (_maskLayer) {
-            [_maskLayer removeFromSuperlayer];
+        if (self.maskLayer) {
+            [self.maskLayer removeFromSuperlayer];
         }
         overlayPathView = [[SLOverlayView alloc] initWithOverlays:self.polygonArray];
         
@@ -277,12 +237,93 @@
 
 }
 
+#pragma mark - SLCanvasViewDelegate
 
-#pragma mark - lifeCycle
+- (void)touchesBegan:(UITouch*)touch
+{
+    self.coordinates = [NSMutableArray array];
+    [self addTouchPoints:touch];
+}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)touchesMoved:(UITouch*)touch
+{
+    
+    [self addTouchPoints:touch];
+}
+
+- (void)touchesEnded:(UITouch*)touch
+{
+    [self addTouchPoints:touch];
+    
+    if (self.coordinates.count > 3) {
+        //        [self drawCircle];
+        
+        [self.polygonPoints addObject:_coordinates];
+    } else {///点数太少，恢复初始状态
+        //        [self clearDrawStatus];
+    }
+    
+    
+}
+
+
+
+#pragma mark get && set
+
+- (SLCanvasView *)canvasView
+{
+    if (_canvasView == nil) {
+        _canvasView = [[SLCanvasView alloc] initWithFrame:self.mapView.bounds];
+        _canvasView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+        _canvasView.userInteractionEnabled = YES;
+        [_canvasView setDelegate:self];
+    }
+    return _canvasView;
+}
+
+- (CALayer *)maskLayer
+{
+    if (_maskLayer == nil) {
+        _maskLayer = [[CALayer alloc] init];
+        _maskLayer.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3].CGColor;
+        _maskLayer.bounds = CGRectMake(0, 0, 10000, 10000);
+    }
+    return _maskLayer;
+}
+
+- (NSMutableArray *)coordinates
+{
+    if (_coordinates == nil) {
+        _coordinates = [NSMutableArray array];
+    }
+    return _coordinates;
+}
+
+- (NSMutableArray *)polygonArray
+{
+    if (_polygonArray == nil) {
+        _polygonArray = [NSMutableArray array];
+    }
+    return _polygonArray;
+}
+
+- (NSMutableArray *)polygonPoints
+{
+    if (_polygonPoints == nil) {
+        _polygonPoints = [NSMutableArray array];
+    }
+    return _polygonPoints;
+}
+
+- (BMKMapView *)mapView
+{
+    if (_mapView == nil) {
+        _mapView = [[BMKMapView alloc] init];
+        _mapView.delegate = self;
+        _mapView.rotateEnabled = NO;
+        _mapView.overlookEnabled = NO;
+    }
+    return _mapView;
 }
 
 @end

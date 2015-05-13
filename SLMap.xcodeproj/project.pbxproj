@@ -13,6 +13,7 @@
 		139CA9FE1A88D8C5009717EE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 139CA9FD1A88D8C5009717EE /* Images.xcassets */; };
 		139CAA011A88D8C5009717EE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 139CA9FF1A88D8C5009717EE /* LaunchScreen.xib */; };
 		139CAA0D1A88D8C5009717EE /* SLMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 139CAA0C1A88D8C5009717EE /* SLMapTests.m */; };
+		74B79D881B03A2370095E711 /* map.gif in Resources */ = {isa = PBXBuildFile; fileRef = 74B79D871B03A2370095E711 /* map.gif */; };
 		74C9C0DD1AC842AC001F9198 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74C9C0DA1AC842AC001F9198 /* ViewController.mm */; };
 		74C9C0E01AC846D7001F9198 /* SLCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C9C0DF1AC846D7001F9198 /* SLCanvasView.m */; };
 		74C9C0E31ACD86D3001F9198 /* SLOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C9C0E21ACD86D3001F9198 /* SLOverlayView.m */; };
@@ -24,7 +25,6 @@
 		74C9C1331ACF8B58001F9198 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C9C1321ACF8B58001F9198 /* Security.framework */; };
 		74C9C1C41ACFA246001F9198 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C9C1C21ACFA246001F9198 /* libbaidumapapi.a */; };
 		74C9C1C51ACFA246001F9198 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 74C9C1C31ACFA246001F9198 /* mapapi.bundle */; };
-		74CB58A01ADA694C00C96071 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 74CB589F1ADA694C00C96071 /* sample.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +49,7 @@
 		139CAA061A88D8C5009717EE /* SLMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SLMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		139CAA0B1A88D8C5009717EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		139CAA0C1A88D8C5009717EE /* SLMapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLMapTests.m; sourceTree = "<group>"; };
+		74B79D871B03A2370095E711 /* map.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = map.gif; sourceTree = "<group>"; };
 		74C9C0D91AC842AC001F9198 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		74C9C0DA1AC842AC001F9198 /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		74C9C0DE1AC846D7001F9198 /* SLCanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCanvasView.h; sourceTree = "<group>"; };
@@ -124,7 +125,6 @@
 		74C9C1C11ACFA246001F9198 /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
 		74C9C1C21ACFA246001F9198 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaidumapapi.a; sourceTree = "<group>"; };
 		74C9C1C31ACFA246001F9198 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
-		74CB589F1ADA694C00C96071 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +155,7 @@
 		139CA9E41A88D8C5009717EE = {
 			isa = PBXGroup;
 			children = (
-				74CB589F1ADA694C00C96071 /* sample.png */,
+				74B79D871B03A2370095E711 /* map.gif */,
 				74C9C1321ACF8B58001F9198 /* Security.framework */,
 				74C9C1301ACF8B53001F9198 /* CoreGraphics.framework */,
 				74C9C12E1ACF8B45001F9198 /* SystemConfiguration.framework */,
@@ -416,7 +416,7 @@
 				139CA9FC1A88D8C5009717EE /* Main.storyboard in Resources */,
 				74C9C1C51ACFA246001F9198 /* mapapi.bundle in Resources */,
 				139CAA011A88D8C5009717EE /* LaunchScreen.xib in Resources */,
-				74CB58A01ADA694C00C96071 /* sample.png in Resources */,
+				74B79D881B03A2370095E711 /* map.gif in Resources */,
 				139CA9FE1A88D8C5009717EE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
